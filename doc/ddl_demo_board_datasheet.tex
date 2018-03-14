@@ -1,0 +1,382 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsfonts} % Typical maths resource packages
+\usepackage{moresize}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{mdwlist}
+\usepackage[includeheadfoot, top=0in, bottom=0.5in, left=0.5in, right=0.5in, head=0.6in]{geometry}
+\usepackage{tikz}
+\usepackage{lastpage}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{relsize}
+\usepackage{enumitem}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage[printwatermark]{xwatermark}
+
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{0pt}{*1}{*0}
+\titlespacing{\subsection}{0pt}{*1}{*0}
+\titlespacing{\subsubsection}{0pt}{*1}{*0}
+
+\captionsetup{font={Large,bf}, labelfont={Large,bf},belowskip=0pt,aboveskip=0pt}
+
+%\newcommand{\ddl}{DDL$^{\textsf{\textsmaller[2]{TM}}}$ }
+\newcommand{\ddl}{DDL }
+\newcommand{\partnumber}{SSIR01}
+%\newcommand{\partdesc}{DDL$^\textsf{TM}$ Hex NOR Gate}
+\newcommand{\partdesc}{Spread-Spectrum IR Proximity Sensor}
+\newcommand{\releasedate}{March 2018}
+\newcommand{\revisiondate}{}
+%\newcommand{\revisiondate}{; Revised May 2016}
+
+\newcommand{\qnbar}[1]{$\overline{\textsf{Q}_{#1}}$}
+\newcommand{\vrf}{V$_{\textsf{RF}}$}
+\newcommand{\vb}{V$_{\textsf{B}}$}
+\newcommand{\tPHL}{$\textsf{t}_\textsf{PHL}$}
+\newcommand{\tPLH}{$\textsf{t}_\textsf{PLH}$}
+\newcommand{\VIL}{$\textsf{V}_\textsf{IL}$}
+\newcommand{\VIH}{$\textsf{V}_\textsf{IH}$}
+\newcommand{\VOL}{$\textsf{V}_\textsf{OL}$}
+\newcommand{\VOH}{$\textsf{V}_\textsf{OH}$}
+\newcommand{\tr}{$\textsf{t}_\textsf{r}$}
+\newcommand{\tf}{$\textsf{t}_\textsf{f}$}
+\newcommand{\tw}{$\textsf{t}_\textsf{w}$}
+\newcommand{\IIL}{$\textsf{I}_\textsf{IL}$}
+\newcommand{\IIH}{$\textsf{I}_\textsf{IH}$}
+\newcommand{\IOS}{$\textsf{I}_\textsf{OS}$}
+\newcommand{\fMAX}{$\textsf{f}_\textsf{MAX}$}
+\newcommand{\comment}[1]{}
+
+% title text for logic tables
+\newcommand{\lttitle}[1]
+{
+  \textbf{\large{#1}}
+}
+
+% column header text for logic tables
+\newcommand{\lthdr}[1]
+{
+  \textbf{\textsf{#1}}
+}
+
+% rising edge for logic tables
+\newcommand{\risingedge}
+{
+\begin{tikzpicture}[scale=0.2]
+\draw (0,0) -- (1,0);
+\draw (1,0) -- (1.2,1);
+\draw (1.2,1) -- (2.2,1);
+\end{tikzpicture}
+}
+
+% falling edge for logic tables
+\newcommand{\fallingedge}
+{
+\begin{tikzpicture}[scale=0.2]
+\draw (0,1) -- (1,1);
+\draw (1,1) -- (1.2,0);
+\draw (1.2,0) -- (2.2,0);
+\end{tikzpicture}
+}
+
+\begin{document}
+
+%\setlength{\parskip}{0pt}
+%\setlength{\parsep}{0pt}
+%\setlength{\headsep}{0pt}
+%\setlength{\topskip}{0pt}
+%\setlength{\topmargin}{0pt}
+%\setlength{\topsep}{0pt}
+%\setlength{\partopsep}{0pt}
+
+\newwatermark[allpages,align=center,angle=45,fontsize=1.25in,fontfamily=\sfdefault]{\textbf{PRELIMINARY}}
+
+\fancypagestyle{foo}{%
+\fancyhf{}
+\fancyhead[L]{
+\vspace*{3em}
+%
+% Z0 Labs Document logo
+%
+\noindent\begin{minipage}{0.25in}
+\includegraphics[width=\textwidth]{hadio_logo.png}
+%\raisebox{1em}{
+%\noindent\HUGE $\boldsymbol{\mathcal{Z}\hspace{-0.225em}_\circ}$
+%\LARGE
+%\fontfamily{lcmss}\fontseries{b}\selectfont
+%\raisebox{0.125em}{\hspace{-0.45em}LABS}
+%\fontfamily{\familydefault}\fontseries{\seriesdefault}\selectfont
+%}
+\end{minipage}
+}
+
+\fancyhead[R]{
+\LARGE \partnumber
+}
+
+\fancyfoot[L]{\small \releasedate \revisiondate}
+\fancyfoot[C]{\thepage/\pageref{LastPage}}
+\fancyfoot[R]{\small \copyright \, 2018 Ted Yapo. Released under CC BY 4.0 license.}
+
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+}
+
+\fancypagestyle{bar}{%
+\fancyhf{}
+
+\fancyhead[L]{
+\vspace*{3em}
+\noindent\begin{minipage}{0.25in}
+\includegraphics[width=\textwidth]{hadio_logo.png}
+%
+% Z0 Labs Document logo
+%
+%\noindent\begin{minipage}{3in}
+%\raisebox{1em}{
+%\noindent\HUGE $\boldsymbol{\mathcal{Z}\hspace{-0.225em}_\circ}$
+%\LARGE
+%\fontfamily{lcmss}\fontseries{b}\selectfont
+%\raisebox{0.125em}{\hspace{-0.45em}LABS}
+%\fontfamily{\familydefault}\fontseries{\seriesdefault}\selectfont
+%}
+\end{minipage}
+}
+
+\fancyhead[R]{
+\LARGE \partnumber
+}
+
+\fancyfoot[L]{\small \releasedate \revisiondate}
+\fancyfoot[C]{\thepage/\pageref{LastPage}}
+\fancyfoot[R]{https://hackaday.io/ted.yapo}
+%\fancyfoot[R]{
+%z\hspace{0.08em}%
+%\begin{tikzpicture}[scale=0.41]
+%  \draw [line width=0.065em] (0.5em, 0.5em) circle [radius=0.5em];
+%  \draw [line width=0.065em] (0.14645em, 0.14645em) -- (0.85355em, 0.85355em);
+%\end{tikzpicture}%
+%\hspace{0.08em}%
+%labs.com
+%}
+
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+}
+
+\pagestyle{bar}
+\thispagestyle{foo}
+
+\renewcommand{\familydefault}{\sfdefault}
+\fontfamily{lcmss}\fontseries{b}\selectfont
+%\sisetup{detect-all}
+\sisetup{math-rm=\mathsf, text-rm=\sffamily}
+%%%------------------
+
+\Huge
+\noindent\textbf{\partnumber}
+
+\vspace{0.1in}
+\large
+\noindent\textbf{\partdesc}
+
+\vspace{-0.05in}
+\noindent\rule{\textwidth}{1pt}
+\normalsize
+
+\vspace{0.25in}
+
+
+\noindent \begin{minipage}[t][0.45\textwidth]{0.45\textwidth}
+\section*{Description}
+The SSIR01 is an infrared (IR) proximity sensor using direct-sequence
+spread spectrum techniques to achieve low probability of transmitted or
+received intereference with other IR devices.
+
+\vspace{0.1in}
+An on-board power supply generates the required RF power from four AA
+batteries.
+
+\end{minipage}
+\hspace{0.05\textwidth}
+\begin{minipage}[t][0.45\textwidth]{0.45\textwidth}
+\section*{Features}
+\setitemize[0]{itemindent=0pt,leftmargin=10pt}
+\begin{itemize*}
+\item Digital logic using only diodes
+\item Unique circuit technology
+\item Self-contained executive desk toy
+\item Stores a single bit of memory
+\end{itemize*}
+\vfill
+\end{minipage}
+
+\vspace{0.1in}
+
+\newcommand{\ecrow}[9]
+{
+  \multirow{3}{*}{#1} & \multirow{3}{*}{#2} & #4 & & #5 & & \multirow{3}{*}{#3} \\
+  \cline{3-6}
+  & & #6 & & #7 & & \\
+  \cline{3-6}
+  & & #8 & & #9 & & \\
+}
+
+\captionsetup{singlelinecheck=off}
+\begin{figure}[h!]
+\captionof*{figure}{Electrical Characteristics}
+\centering
+{\renewcommand{\arraystretch}{1.2}
+\newcolumntype{C}{>{\centering\arraybackslash}p{2cm}}
+\noindent\begin{tabularx}{\textwidth}{ C | X | c | c | c | c | c}
+  \hline
+  \textbf{Symbol} & \textbf{Parameter} & \textbf{Conditions} & \textbf{Min.} &
+  \textbf{Typ.} & \textbf{Max.} &  \textbf{Units} \\ \hline
+  V$_\textsf{batt}$ & Battery supply voltage & & 2.0 & 4.8 & 6.5 &\si{\volt}\\
+  \hline
+  I$_\textsf{batt}$ & Battery current drain & & & 50 & &\si{\milli \ampere}\\
+  \hline
+  f$_\textsf{supp}$ & RF power supply frequency & & & 3.6 & &\si{\mega \hertz}\\
+  \hline
+  --- & Data storage capacity & & & 1 & &bit\\
+  \hline
+  --- & Battery lifetime & & & 48 & &\si{hours}\\
+  \hline
+\end{tabularx}}
+
+\raggedright
+\begin{tabular}{r l}
+Notes: & 1. Typical measurements with red LEDs at Vbatt = 5.0V \\
+       & 2. Battery lifetime based on 2000 mAH NiMH cells
+\end{tabular}
+
+\end{figure}
+\captionsetup{singlelinecheck=on}
+
+
+\FloatBarrier
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics{DDL_demo_board_diagram.pdf} \\
+\vspace{8pt}
+\caption{DDL Demo Board (1:1 scale on US letter size paper)}
+\label{fig:diagram}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics{ddl_demo_board_latch_schematic.pdf} \\
+\vspace{8pt}
+\caption{DDL Demo Board Latch Schematic}
+\label{fig:latch}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+%\includegraphics{ddl_demo_board_power_supply_schematic.pdf} \\
+\vspace{8pt}
+\caption{DDL Demo Board Power Supply Schematic}
+\label{fig:supply}
+\end{figure}
+
+
+\setlength{\columnsep}{0.25in}
+\begin{multicols}{2}
+
+
+\section*{Operation}
+\noindent A diagram of the DDL Demo Board is shown in Figure
+\ref{fig:diagram}. The user interface consists of a power switch, a
+pair of Set/Reset pushbutton switches, and two indicator LEDs.
+
+\subsection*{Batteries}
+\noindent The DDL Demo Board requires (4) IEC-LR6 (AA size) batteries.  The use
+of NiMH batteries is recommended, although NiCd, alkaline or lithium
+primary batteries may also be used.
+
+Rechargeable batteries should be replaced before they are completely
+discharged to preserve battery health. The DDL Demo Board is capable
+of completely draining batteries, which may negatively impact the
+number of charge/discharge cycles possible with rechargeable types.
+
+\subsection*{Power Switch}
+\noindent Use the power switch to turn the DDL Demo Board on or off.  Note that
+the state of the board (storing a 0 or 1) is lost on power off.  Upon
+power-up, the board may assume either one of the states, although
+most boards will show a bias toward one of the states due to slight
+differences in component values in the latch circuit.
+
+\subsection*{Data Storage}
+\noindent Upon power up, the board will assume one of the states (0 or
+1).  To set a specific state, press one of the white buttons (Set or
+Reset).  The circuit will continue to hold the desired state until the
+power is turned off.
+
+\subsection*{RF Emissions}
+The DDL Demo Board may emit unintentional RF radiation between 3 and 4
+MHz, and at harmonics thereof.  In case this causes interference with
+any other electronic device, switch off the power to the DDL Demo
+Board.
+
+\section*{\ddl Background}
+\noindent \ddl gates implement standard logic functions using silicon
+diodes as active elements.  In order to enable arbitrary logic
+functions, \ddl gates must provide absolute gains greater than unity
+and a logical inversion function, both of which are absent from
+previous diode-based logic. To achieve the required gain and inversion
+functions, PIN-type diodes are used to switch power from a
+radio-frequency (RF) supply, \vrf. The switched RF power is then
+rectified by a voltage doubler consisting of 1N4148 diodes and LEDs to
+produce a DC output signal. On the DDL Demo Board, common rectifier
+diodes (1N4007 typ.)  are used as PIN diodes, achieving good
+performance at very low cost.
+
+\subsection*{Latch Design}
+\noindent A schematic diagram of the latch circuit implemented on the
+DDL Demo Board is shown in Figure \ref{fig:latch}.  Two diode-based
+inverters are cross-coupled to form an RS latch.  In operation, an RF
+power supply of nominally 5V amplitude at 3.6MHz is used as \vrf.
+Assuming the latch is in the set state, D1 has negligible DC current
+flowing through it, so it assumes a high impedance at the RF power
+supply frequency. This allows RF power from the supply to flow through
+R2 and C1 to the voltage doubler formed by C2, D2, D3, and C3.  The
+resulting DC output current flows through L2 and D4, causing D4 to
+assume a low impedance, shunting RF current away from the lower
+voltage doubler consisting of C5, D5, D6, and C6.  Since little
+current is allowed to flow in the lower doubler, a low DC bias is
+maintained on D1, completing the feedback loop.  The result is a
+stable state with the Q LED illuminated.
+
+With the latch in the reset state, the roles of the upper and lower
+inverters are reversed, with D1 shunting RF current to ground, and
+D4 allowing current to flow through the lower voltage doubler.
+
+When pressed, push-button switches SW1 and SW2 cause the latch to
+assume either the RESET or SET state, respectively, buy forcing either
+D1 or D4 into a low RF impedance state.  When the switch input is
+removed, the latch retains its current state.
+
+\subsection*{RF Power Supply}
+\noindent The DDL latch on the DDL Demo Board requires an RF power
+supply for operation.  The simple supply shown in Figure
+\ref{fig:supply} is implemented on the board.  In operation, R4, C7,
+and U1a, a Schmitt-trigger inverter, form an RC relaxation oscillator
+with a nominal frequency around 3.6 MHz.  The resulting signal is
+buffered through U1b to drive a push-pull output stage consisting of
+U1c-U1f.  Output resistors R5-R8 establish an output impedance of
+50$\Omega$ for the output stage, which is AC-coupled to output
+transformer T1.  T1 acts as a balun transformer converting the
+balanced output of the push-pull stage to unbalanced RF power for the
+latch circuit.
+
+\end{multicols}
+\end{document}
+
