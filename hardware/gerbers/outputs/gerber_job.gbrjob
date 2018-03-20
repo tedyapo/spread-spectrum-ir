@@ -1,0 +1,11 @@
+G04 Gerber job file.*
+%TF.FileFunction,JobInfo*%
+%TF.GenerationSoftware,Autodesk,EAGLE,8.7.0*%
+%TF.CreationDate,2018-03-19T03:53:10Z*%
+%TF.Part,Single*%
+%MOMM*%
+%TJ.B_Owner,Theodore Yapo <ted.yapo@gmail.com>*%
+%TJ.B_ID,front_end_mk1*%
+%TJ.B_LayerNum,2*%
+%TJ.B_Thickness,1.671119*%
+M02*
