@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BOARDS=(front_end_mk1 tsmp77000_breakout tsmp6000_breakout pic16f1508_breakout 5mm_front_end)
+BOARDS=(front_end_mk1 tsmp77000_breakout tsmp6000_breakout pic16f1508_breakout 5mm_front_end adpd2211_mixer adpd2211_breakout)
 OSHP_FILES=(topsilkscreen.ger topsoldermask.ger toplayer.ger \
             bottomsilkscreen.ger bottomsoldermask.ger bottomlayer.ger \
             boardoutline.ger drills.xln)
